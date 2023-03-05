@@ -17,3 +17,9 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+.DS_Store
+/public/css
+/public/js
+/public/mix-manifest.json
+/public/assets/img
