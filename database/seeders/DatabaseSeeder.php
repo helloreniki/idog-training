@@ -23,9 +23,10 @@ class DatabaseSeeder extends Seeder
 
         User::factory(10)->create();
 
+        // 0 dogs for user 1, on second migration seed 0 dogs for user 1 and 2, on 3rd 0 dogs for user 3 and 4 ???
         $users = User::all();
         foreach ($users as $key => $user) {
-          Dog::factory(rand(1,3))->create();
+          $user->dogs()->saveMany(Dog::factory(rand(1,3))->create());
         }
 
 
