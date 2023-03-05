@@ -22,10 +22,10 @@ class Dog extends Model
     }
 
     // $dog->skills (dont know if i'll need this, probably I'll get skillCategories->skills())
-    // public function skills() // Many to Many
-    // {
-    //   return $this->belongsToMany(Skill::class);
-    // }
+    public function skills() // Many to Many
+    {
+      return $this->belongsToMany(Skill::class);
+    }
 
     // $dog->skillCategories (the other way around i probably wont need, or maybe category->dogs)
     // dog hasMany Categories through Skill
