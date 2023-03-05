@@ -12,7 +12,7 @@ class Skill extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'skill_category_id', 'status'];
+    protected $fillable = ['name', 'description', 'category', 'status'];
 
     protected $casts = ['status' => SkillStatus::class];
 
@@ -21,8 +21,4 @@ class Skill extends Model
       return $this->belongsToMany(Dog::class);
     }
 
-    public function skillCategory()
-    {
-      return $this->belongsTo(SkillCategory::class);
-    }
 }

@@ -17,10 +17,10 @@ class SkillSeeder extends Seeder
       $json = File::get("database/data/skills.json");
       $skills = json_decode($json);
 
-      foreach ($skills as $key => $value) {
+      foreach ($skills as $key => $skill) {
           Skill::create([
-              "name" => $value->name,
-              "skill_category_id" => $value->category_id
+              "name" => $skill->name,
+              "category" => $skill->category
           ]);
       }
 

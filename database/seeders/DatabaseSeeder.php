@@ -29,7 +29,6 @@ class DatabaseSeeder extends Seeder
         }
 
 
-        $this->call(SkillCategorySeeder::class);
         $this->call(SkillSeeder::class);
 
 

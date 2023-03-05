@@ -8,6 +8,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
-      return inertia('Dashboard');
+      $dogs = auth()->user()->dogs()->get();
+      dd($dogs);
+
+      return inertia('Dashboard', [
+        'dogs' => $dogs
+      ]);
     }
 }
