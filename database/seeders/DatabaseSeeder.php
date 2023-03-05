@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Dog;
 use App\Models\User;
+use App\Models\Skill;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -31,6 +32,11 @@ class DatabaseSeeder extends Seeder
 
 
         $this->call(SkillSeeder::class);
+
+        $dogs = Dog::all();
+        foreach ($dogs as $key => $dog) {
+          $dog->skills()->attach(Skill::all());
+        }
 
 
     }
