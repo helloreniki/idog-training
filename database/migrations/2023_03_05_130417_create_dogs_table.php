@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('dob');
             $table->string('breed');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

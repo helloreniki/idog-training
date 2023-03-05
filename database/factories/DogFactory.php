@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -17,12 +18,13 @@ class DogFactory extends Factory
      */
     public function definition(): array
     {
-        // $breed = Arr::random(['border colli', 'german shephard', 'golden retriever', 'mudi', 'sheltie']);
+        $breed = Arr::random(['border colli', 'german shephard', 'golden retriever', 'mudi', 'sheltie']);
 
         return [
-            // 'name' => fake()->firstName,
-            // 'breed' => $breed,
-            // 'dob' => fake()->dateTimeBetween('-10 years', now())
+            'name' => fake()->firstName,
+            'breed' => $breed,
+            'dob' => fake()->dateTimeBetween('-10 years', now()),
+            'user_id' => User::inRandomOrder()->first()
         ];
     }
 }

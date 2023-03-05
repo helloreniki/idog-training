@@ -11,7 +11,7 @@ class Dog extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'dob', 'breed'];
+    protected $fillable = ['name', 'dob', 'breed', 'user_id'];
 
     protected $dates = ['dob']; // carbon object
 
