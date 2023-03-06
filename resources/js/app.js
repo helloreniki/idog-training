@@ -28,3 +28,11 @@ createInertiaApp({
         color: '#4B5563',
     },
 });
+
+window.rsFlat = function(v) {
+  return JSON.parse(JSON.stringify(v))
+}
+
+window.capitalize = function(v) {
+  return v.charAt(0).toUpperCase() + v.slice(1)
+}
