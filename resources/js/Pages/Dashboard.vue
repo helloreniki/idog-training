@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import Sidebar from '@/Parts/Sidebar.vue'
+import DogNav from '@/Parts/DogNav.vue'
 import { useDogStore } from '../../Stores/dog.js'
 
 const dogStore = useDogStore()
@@ -8,6 +9,11 @@ const dogStore = useDogStore()
 const props = defineProps({
   dogs: Array
 })
+
+// if user has only 1 dog, make it chosenDog, if > 1, null
+if(props.dogs.length = 1){
+  dogStore.chosenDog = props.dogs[0]
+}
 
 dogStore.dogs = props.dogs
 
@@ -19,24 +25,16 @@ dogStore.dogs = props.dogs
     <Head title="Dashboard" />
 
     <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
-        </template>
 
+        <DogNav />
         <div class="flex gap-8">
 
           <Sidebar class="" />
 
-          <div class="flex-1 my-8 bg-red-200">
-            <h1>My dogs</h1>
-            <div  v-for="dog in dogStore.dogs" :key="dog.id"
-                  @click="dogStore.chooseDog(dog)"
-                  class="flex gap-4 mt-4 text-xl cursor-pointer"
-            >
-                {{ dog.name }}
-            </div>
-            <div>ChosenDog: {{ dogStore.chosenDog.name }}</div>
+          <div class="my-6">
+            <div>Content</div>
           </div>
+
         </div>
     </AuthenticatedLayout>
 </template>
