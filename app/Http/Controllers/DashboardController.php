@@ -16,7 +16,7 @@ class DashboardController extends Controller
           'categories' => $dog->skills()->get()->groupBy('category')
       ]);
 
-      dd($dogs->toArray());
+      // dd($dogs->toArray());
 
       return inertia('Dashboard', [
         'dogs' => $dogs
