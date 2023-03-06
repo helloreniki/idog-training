@@ -21,7 +21,7 @@
               </svg>
             </DisclosureButton>
             <DisclosurePanel class="space-y-1">
-              <DisclosureButton v-for="subItem in item.children" :key="subItem.name" as="a" :href="subItem.href" class="group flex w-full items-center rounded-md py-2 pl-11 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">{{ subItem.name }}</DisclosureButton>
+              <DisclosureButton v-for="subItem in item.children" :key="subItem.name" as="a" :href="subItem.href" class="group flex w-full items-center rounded-md py-2 pl-11 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 capitalize" >{{ subItem }}</DisclosureButton>
             </DisclosurePanel>
           </Disclosure>
         </template>
@@ -33,6 +33,11 @@
 <script setup>
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import { CalendarIcon, ChartBarIcon, FolderIcon, HomeIcon, InboxIcon, UsersIcon } from '@heroicons/vue/24/outline'
+import { useDogStore } from '../../Stores/dog.js'
+
+const dogStore = useDogStore()
+
+// console.log(Object.keys(dogStore.chosenDog.categories))
 
 const navigation = [
   { name: 'Dashboard', icon: HomeIcon, current: true, href: '#' },
@@ -40,12 +45,13 @@ const navigation = [
     name: 'ToLearn',
     icon: UsersIcon,
     current: false,
-    children: [
-      { name: 'Obedience', href: '#' },
-      { name: 'Tricks', href: '#' },
-      { name: 'Socialization', href: '#' },
-      { name: 'Agility', href: '#' },
-    ],
+    children: Object.keys(dogStore.chosenDog.categories)
+    // [
+    //   { name: 'Obedience', href: '#' },
+    //   { name: 'Tricks', href: '#' },
+    //   { name: 'Socialization', href: '#' },
+    //   { name: 'Agility', href: '#' },
+    // ],
   },
   {
     name: 'Training',
