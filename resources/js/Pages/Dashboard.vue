@@ -29,7 +29,13 @@ dogStore.dogs = props.dogs
 
           <div class="flex-1 my-8 bg-red-200">
             <h1>My dogs</h1>
-            <div v-for="dog in dogStore.dogs" :key="dog.id" class="flex gap-4 mt-4 text-xl">{{ dog.name }}</div>
+            <div  v-for="dog in dogStore.dogs" :key="dog.id"
+                  @click="dogStore.chooseDog(dog)"
+                  class="flex gap-4 mt-4 text-xl cursor-pointer"
+            >
+                {{ dog.name }}
+            </div>
+            <div>ChosenDog: {{ dogStore.chosenDog.name }}</div>
           </div>
         </div>
     </AuthenticatedLayout>
