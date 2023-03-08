@@ -6,6 +6,8 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
+import DogNav from '@/Parts/DogNav.vue';
+import Sidebar from '@/Parts/Sidebar.vue';
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -135,10 +137,13 @@ const showingNavigationDropdown = ref(false);
                     </div>
                 </div>
             </nav>
-
+            <DogNav />
             <!-- Page Content -->
-            <main>
-                <slot />
+            <main class="flex gap-8">
+                <Sidebar class="" />
+                <div class="my-6">
+                  <slot />
+                </div>
             </main>
         </div>
     </div>

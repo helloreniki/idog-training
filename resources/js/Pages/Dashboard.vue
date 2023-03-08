@@ -10,12 +10,13 @@ const props = defineProps({
   dogs: Array
 })
 
+dogStore.dogs = props.dogs
+
 // if user has only 1 dog, make it chosenDog, if > 1, null
 if(props.dogs.length = 1){
   dogStore.chosenDog = props.dogs[0]
 }
 
-dogStore.dogs = props.dogs
 
 // console.log(dogStore.dogs)
 
@@ -25,16 +26,6 @@ dogStore.dogs = props.dogs
     <Head title="Dashboard" />
 
     <AuthenticatedLayout>
-
-        <DogNav />
-        <div class="flex gap-8">
-
-          <Sidebar class="" />
-
-          <div class="my-6">
-            <div>Content</div>
-          </div>
-
-        </div>
+      DASHBOARD
     </AuthenticatedLayout>
 </template>
