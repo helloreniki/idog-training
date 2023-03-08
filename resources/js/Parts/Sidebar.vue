@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5 pb-4">
+  <div class="flex flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5 pb-4 pr-8 min-h-screen">
     <div class="flex flex-shrink-0 items-center space-y-5 px-4">
       <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
     </div>
