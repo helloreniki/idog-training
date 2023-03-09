@@ -1,6 +1,11 @@
 <template>
-  <div v-for="categoryObj, index in dogStore.chosenDog.categories" :key="index" class="">
-    <div @click="openCategory(categoryObj)" class="cursor-pointer">{{index}}</div>
+  <div class="flex gap-8 flex-wrap">
+    <div v-for="categoryObj, index in dogStore.chosenDog.categories" :key="index"
+         class="uppercase"
+         :class="{'underline font-semibold': openedCategory === categoryObj}">
+      <div @click="openCategory(categoryObj)" class="cursor-pointer">{{index}}</div>
+    </div>
+
   </div>
   <div v-if="openedCategory" class="mt-8">
     <div v-for="skill in openedCategory" :key="skill.id">{{ skill.name }}</div>
