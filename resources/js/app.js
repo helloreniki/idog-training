@@ -8,24 +8,20 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import { Head, Link } from '@inertiajs/vue3';
 import { createPinia } from 'pinia';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
+import GuestLayout from '@/Layouts/GuestLayout.vue'
 
 const pinia = createPinia()
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
-resolve: name => {
-  const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
-  let page = pages[`./Pages/${name}.vue`]
-  page.default.layout = page.default.layout || AuthenticatedLayout
-  return page
-},
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: name => {
       const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
       let page = pages[`./Pages/${name}.vue`]
-      page.default.layout = page.default.layout || AuthenticatedLayout
+      page.default.layout = name.startsWith('Auth/') ? undefined : AuthenticatedLayout
+      // page.default.layout = page.default.layout || AuthenticatedLayout
       return page
     },
     // resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
