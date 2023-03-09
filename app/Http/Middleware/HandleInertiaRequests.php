@@ -39,6 +39,13 @@ class HandleInertiaRequests extends Middleware
                     'location' => $request->url(),
                 ]);
             },
+            'dogs' => request()->user()?->dogs()->with('skills')->get()->map(fn($dog) => [
+                'id' => $dog->id,
+                'name' => $dog->name,
+                'dob' => $dog->dob,
+                'breed' => $dog->breed,
+                'categories' => $dog->skills()->get()->groupBy('category')
+            ])
         ]);
     }
 }
