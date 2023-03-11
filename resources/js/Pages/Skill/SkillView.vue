@@ -19,7 +19,7 @@
       <form @submit.prevent="submitForm" class="flex flex-col gap-4 my-6">
         <div class="flex gap-4 items-center">
           <div v-for="dog in dogStore.dogs">
-            <input type="checkbox" v-model="dog_id" :value="dog.id"> {{ dog.name }}
+            <input type="checkbox" v-model="form.dog_ids" :value="dog.id"> {{ dog.name }}
           </div>
         </div>
 
@@ -158,7 +158,8 @@ const form = useForm({
   category: null,
   name: null,
   description: null,
-  status: null
+  status: 'todo',
+  dog_ids: [],
 })
 
 function openCategory(categoryObj) {

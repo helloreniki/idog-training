@@ -20,15 +20,15 @@ class SkillController extends Controller
         'name' => 'required|min:2|max:32',
         'description' => 'nullable|min:5|max:250',
         'category' => 'required',
-        'status' => '',
+        'status' => 'required',
       ]);
       // dd($data);
 
       $skill = Skill::create($data);
-      // find dog attach this skill to pivot table
 
-      // $dog = request('dog');
-      // $skill->attach($dog)
+      // find dog attach this skill to pivot table
+      $dog_ids = request('dog_ids');
+      $skill->dogs()->attach($dog_ids);
 
       return redirect()->route('skill.index')->with('status', 'Successfully created new Skill');
 
