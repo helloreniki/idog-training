@@ -46,9 +46,9 @@
                   >
                     <ListboxOption
                       v-slot="{ active, selected }"
-                      v-for="categoryObj, index in dogStore.chosenDog.categories"
+                      v-for="category, index in categories"
                       :key="index"
-                      :value="index"
+                      :value="category"
                       as="template"
                     >
                       <li
@@ -62,7 +62,7 @@
                             selected ? 'font-medium' : 'font-normal',
                             'block truncate',
                           ]"
-                          >{{ index }}</span
+                          >{{ category }}</span
                         >
                         <span
                           v-if="selected"
@@ -110,7 +110,7 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 
 const dogStore = useDogStore();
 
-const categories = dogStore.chosenDog.categories
+const categories = Object.keys(dogStore.chosenDog.categories)
 
 
 // console.log(Object.keys(dogStore.chosenDog.categories))
