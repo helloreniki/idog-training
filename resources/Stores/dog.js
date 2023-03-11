@@ -8,6 +8,7 @@ export const useDogStore = defineStore('dog', () => {
     // ————————————————————————————————————————————————————————————————————————————————————————————————————
 
     const dogs = ref({
+      id: null,
       name: null,
       breed: null,
       dob: null,

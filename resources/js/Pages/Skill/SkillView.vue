@@ -109,7 +109,6 @@
         </div>
         <div v-if="form.errors.status" class="text-sm text-red-500">{{ form.errors.status }}</div>
         <PrimaryButton :disabled="form.processing" class="self-start mt-6">Add new skill</PrimaryButton>
-        {{ selectedCategory }}
       </form>
     </div>
   </Modal>
