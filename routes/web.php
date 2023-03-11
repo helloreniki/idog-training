@@ -21,6 +21,7 @@ use App\Http\Controllers\DashboardController;
 // home is Dashboard -> if not auth -> login page
 Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/skills-to-learn', [SkillController::class, 'index'])->middleware(['auth', 'verified'])->name('skill.index');
+Route::post('/skills-to-learn', [SkillController::class, 'store'])->middleware(['auth', 'verified'])->name('skill.store');
 
 
 Route::middleware('auth')->group(function () {

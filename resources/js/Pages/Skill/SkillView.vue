@@ -15,17 +15,17 @@
   <Modal :show="newSkillModalOpened" @close="newSkillModalOpened = false">
     <div class="p-8">
       <h1 class="text-2xl font-semibold">Add New Skill</h1>
-      <form class="flex flex-col gap-4 my-6">
+      <form @submit.prevent="submitForm" class="flex flex-col gap-4 my-6">
         <div v-if="showNewCategoryInput === false" class="w-full flex flex-col gap-4">
           <InputLabel for="category" value="Choose category" />
 
           <div class="w-full">
-            <Listbox v-model="selectedCategory">
+            <Listbox v-model="form.category">
               <div class="relative mt-1">
                 <ListboxButton
                   class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left border border-gray-500 shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
                 >
-                  <span class="block truncate">{{ selectedCategory ?? "Choose category..." }}</span>
+                  <span class="block truncate">{{ form.category ?? "Choose category..." }}</span>
                   <span
                     class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
                   >
@@ -77,19 +77,31 @@
               </div>
             </Listbox>
           </div>
+          <div v-if="form.errors.category" class="text-sm text-red-500">{{ form.errors.category }}</div>
 
           <SecondaryButton type="button" @click="showNewCategoryInput = true" class="self-start">or input new Category</SecondaryButton>
 
         </div>
         <div v-if="showNewCategoryInput" class="flex flex-col gap-4">
           <InputLabel value="New Category" />
-          <TextInput v-model="selectedCategory" class="px-2 py-1 border border-gray-500 shadow-md" />
+          <TextInput v-model="form.category" class="px-2 py-1 border border-gray-500 shadow-md" />
+          <div v-if="form.errors.category" class="text-sm text-red-500">{{ form.errors.category }}</div>
           <SecondaryButton type="button" @click="showNewCategoryInput = false" class="self-start">or choose existing Category</SecondaryButton>
         </div>
 
         <InputLabel for="skill" value="Skill" />
-        <TextInput v-model="skill" class="px-2 py-1 border border-gray-500 shadow-md"/>
-        <PrimaryButton class="self-start mt-6">Add new skill</PrimaryButton>
+        <TextInput v-model="form.name" class="px-2 py-1 border border-gray-500 shadow-md"/>
+        <div v-if="form.errors.name" class="text-sm text-red-500">{{ form.errors.name }}</div>
+        <InputLabel for="description" value="Description" />
+        <div v-if="form.errors.description" class="text-sm text-red-500">{{ form.errors.description }}</div>
+        <TextInput v-model="form.description" class="px-2 py-1 border border-gray-500 shadow-md" />
+        <div class="flex gap-2 items-center">
+          <input type="radio" v-model="form.status" value="todo">ToDo
+          <input type="radio" v-model="form.status" value="in_progress">In progress
+          <input type="radio" v-model="form.status" value="done">Done
+        </div>
+        <div v-if="form.errors.status" class="text-sm text-red-500">{{ form.errors.status }}</div>
+        <PrimaryButton :disabled="form.processing" class="self-start mt-6">Add new skill</PrimaryButton>
         {{ selectedCategory }}
       </form>
     </div>
@@ -106,6 +118,7 @@ import TextInput from '@/Components/TextInput.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
+import { useForm } from '@inertiajs/vue3'
 
 
 const dogStore = useDogStore();
@@ -119,14 +132,21 @@ const categories = Object.keys(dogStore.chosenDog.categories)
 const openedCategory = ref(null)
 const newSkillModalOpened = ref(null)
 // const selectedPerson = ref(people[0])
-const selectedCategory = ref(null)
+const category = ref(null)
 // potem ni zvezan z v-model, read only, mogoce se da set tudi???
-// const selectedCategory = computed(() => (openedCategory ? openedCategory.category : null))
+// const category = computed(() => (openedCategory ? openedCategory.category : null))
 const skill = ref('')
 // console.log('oc', openedCategory.value)
-// console.log('sc', selectedCategory.value)
+// console.log('sc', category.value)
 
 const showNewCategoryInput = ref(false)
+
+const form = useForm({
+  category: null,
+  name: null,
+  description: null,
+  status: null
+})
 
 function openCategory(categoryObj) {
   openedCategory.value = categoryObj
@@ -135,6 +155,13 @@ function openCategory(categoryObj) {
 
 function openNewSkillModal(){
   newSkillModalOpened.value = true
+}
+
+function submitForm(){
+  form.post("/skills-to-learn", {
+    preserveScroll: true,
+    onSuccess: () => form.reset()
+  })
 }
 
 </script>
