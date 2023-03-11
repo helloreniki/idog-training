@@ -24,4 +24,8 @@ console.log(page.props.dogs.length)
 if(page.props.dogs.length === 1){
   dogStore.chosenDog = page.props.dogs[0]
 }
+
+//put dogs from shared data to store
+dogStore.dogs = page.props.dogs
+// console.log(dogStore.dogs)
 </script>

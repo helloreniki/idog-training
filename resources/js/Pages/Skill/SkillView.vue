@@ -1,11 +1,12 @@
 <template>
-  <div class="flex gap-8 flex-wrap mb-8">
+  <div v-if="dogStore.chosenDog" class="flex gap-8 flex-wrap mb-8">
     <div v-for="categoryObj, index in dogStore.chosenDog.categories" :key="index"
          class="uppercase"
          :class="{'underline font-semibold': openedCategory === categoryObj}">
       <div @click="openCategory(categoryObj)" class="cursor-pointer">{{index}}</div>
     </div>
   </div>
+  <div v-else class="text-sm text-red-500">Please choose a dog first.</div>
   <PrimaryButton @click="openNewSkillModal">Add new Skill</PrimaryButton>
   <div v-if="openedCategory" class="mt-8">
     <div v-for="skill in openedCategory" :key="skill.id">{{ skill.name }}</div>
@@ -16,6 +17,12 @@
     <div class="p-8">
       <h1 class="text-2xl font-semibold">Add New Skill</h1>
       <form @submit.prevent="submitForm" class="flex flex-col gap-4 my-6">
+        <div class="flex gap-4 items-center">
+          <div v-for="dog in dogStore.dogs">
+            <input type="checkbox" v-model="dog_id" :value="dog.id"> {{ dog.name }}
+          </div>
+        </div>
+
         <div v-if="showNewCategoryInput === false" class="w-full flex flex-col gap-4">
           <InputLabel for="category" value="Choose category" />
 
@@ -123,7 +130,13 @@ import { useForm } from '@inertiajs/vue3'
 
 const dogStore = useDogStore();
 
-const categories = Object.keys(dogStore.chosenDog.categories)
+const categories = computed(() => {
+  if(dogStore.chosenDog){
+   return Object.keys(dogStore.chosenDog.categories)
+  } else {
+    return null
+  }
+})
 
 
 // console.log(Object.keys(dogStore.chosenDog.categories))
