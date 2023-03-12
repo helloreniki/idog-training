@@ -21,6 +21,7 @@ class SkillController extends Controller
         'description' => 'nullable|min:5|max:250',
         'category' => 'required',
         'status' => 'required',
+        'dog_ids' => 'required'
       ]);
       // dd($data);
 

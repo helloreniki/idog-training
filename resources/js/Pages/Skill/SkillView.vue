@@ -1,13 +1,18 @@
 <template>
-  <div v-if="dogStore.chosenDog" class="flex gap-8 flex-wrap mb-8">
-    <div v-for="categoryObj, index in dogStore.chosenDog.categories" :key="index"
-         class="uppercase"
-         :class="{'underline font-semibold': openedCategory === categoryObj}">
-      <div @click="openCategory(categoryObj)" class="cursor-pointer">{{index}}</div>
+  <div v-if="dogStore.chosenDog">
+    <div  class="flex gap-8 flex-wrap items-center mb-8">
+      <div v-for="categoryObj, index in dogStore.chosenDog.categories" :key="index"
+           class="uppercase"
+           :class="{'underline font-semibold': openedCategory === categoryObj}">
+        <div @click="openCategory(categoryObj)" class="cursor-pointer">{{index}}</div>
+      </div>
     </div>
+    <PrimaryButton @click="openNewSkillModal">Add new Skill</PrimaryButton>
   </div>
-  <div v-else class="text-sm text-red-500">Please choose a dog first.</div>
-  <PrimaryButton @click="openNewSkillModal">Add new Skill</PrimaryButton>
+
+  <div v-else class="text-sm text-red-500">Please choose a dog first. Above.</div>
+
+
   <div v-if="openedCategory" class="mt-8">
     <div v-for="skill in openedCategory" :key="skill.id">{{ skill.name }}</div>
   </div>
@@ -21,6 +26,7 @@
           <div v-for="dog in dogStore.dogs">
             <input type="checkbox" v-model="form.dog_ids" :value="dog.id"> {{ dog.name }}
           </div>
+          <div v-if="form.errors.dog_ids" class="text-sm text-red-500">{{ form.errors.dog_ids }}</div>
         </div>
 
         <div v-if="showNewCategoryInput === false" class="w-full flex flex-col gap-4">
