@@ -179,7 +179,11 @@ function openNewSkillModal(){
 function submitForm(){
   form.post("/skills-to-learn", {
     preserveScroll: true,
-    onSuccess: () => form.reset()
+    onSuccess: () => {
+      form.reset()
+      newSkillModalOpened.value = false
+    },
+
   })
 }
 
