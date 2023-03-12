@@ -12,7 +12,6 @@
 
   <div v-else class="text-sm text-red-500">Please choose a dog first. Above.</div>
 
-
   <div v-if="openedCategory" class="mt-8">
     <div v-for="skill in openedCategory" :key="skill.id">{{ skill.name }}</div>
   </div>
@@ -21,7 +20,9 @@
   <Modal :show="newSkillModalOpened" @close="newSkillModalOpened = false">
     <div class="p-8">
       <h1 class="text-2xl font-semibold">Add New Skill</h1>
+      <!-- FORM -->
       <form @submit.prevent="submitForm" class="flex flex-col gap-4 my-6">
+        <!-- dogs -->
         <div class="flex gap-4 items-center">
           <div v-for="dog in dogStore.dogs">
             <input type="checkbox" v-model="form.dog_ids" :value="dog.id"> {{ dog.name }}
@@ -29,6 +30,7 @@
           <div v-if="form.errors.dog_ids" class="text-sm text-red-500">{{ form.errors.dog_ids }}</div>
         </div>
 
+        <!-- category -->
         <div v-if="showNewCategoryInput === false" class="w-full flex flex-col gap-4">
           <InputLabel for="category" value="Choose category" />
 
@@ -102,18 +104,24 @@
           <SecondaryButton type="button" @click="showNewCategoryInput = false" class="self-start">or choose existing Category</SecondaryButton>
         </div>
 
+        <!-- skill -->
         <InputLabel for="skill" value="Skill" />
         <TextInput v-model="form.name" class="px-2 py-1 border border-gray-500 shadow-md"/>
         <div v-if="form.errors.name" class="text-sm text-red-500">{{ form.errors.name }}</div>
+
+        <!-- description -->
         <InputLabel for="description" value="Description" />
         <div v-if="form.errors.description" class="text-sm text-red-500">{{ form.errors.description }}</div>
         <TextInput v-model="form.description" class="px-2 py-1 border border-gray-500 shadow-md" />
+
+        <!-- status -->
         <div class="flex gap-2 items-center">
           <input type="radio" v-model="form.status" value="todo">ToDo
           <input type="radio" v-model="form.status" value="in_progress">In progress
           <input type="radio" v-model="form.status" value="done">Done
         </div>
         <div v-if="form.errors.status" class="text-sm text-red-500">{{ form.errors.status }}</div>
+
         <PrimaryButton :disabled="form.processing" class="self-start mt-6">Add new skill</PrimaryButton>
       </form>
     </div>
@@ -149,7 +157,6 @@ const categories = computed(() => {
 // i need categories keys
 const openedCategory = ref(null)
 const newSkillModalOpened = ref(null)
-// const selectedPerson = ref(people[0])
 const category = ref(null)
 // potem ni zvezan z v-model, read only, mogoce se da set tudi???
 // const category = computed(() => (openedCategory ? openedCategory.category : null))
