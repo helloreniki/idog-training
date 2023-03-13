@@ -18,7 +18,7 @@ class Skill extends Model
 
     public function dogs()
     {
-      return $this->belongsToMany(Dog::class);
+      return $this->belongsToMany(Dog::class)->withPivot('status');
     }
 
 }

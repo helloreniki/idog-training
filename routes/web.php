@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SkillStatusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,7 @@ use App\Http\Controllers\DashboardController;
 Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/skills-to-learn', [SkillController::class, 'index'])->middleware(['auth', 'verified'])->name('skill.index');
 Route::post('/skills-to-learn', [SkillController::class, 'store'])->middleware(['auth', 'verified'])->name('skill.store');
+Route::put('/dogs/{dog}/skills/{skill}/skillstatus', [SkillStatusController::class, 'update'])->middleware(['auth', 'verified'])->name('skill.status.update');
 
 
 Route::middleware('auth')->group(function () {
