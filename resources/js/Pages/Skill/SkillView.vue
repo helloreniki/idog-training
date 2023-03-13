@@ -12,8 +12,10 @@
 
   <div v-else class="text-sm text-red-500">Please choose a dog first. Above.</div>
 
-  <div v-if="openedCategory" class="mt-8">
-    <div v-for="skill in openedCategory" :key="skill.id">{{ skill.name }}</div>
+  <div v-if="openedCategory" class="mt-8 flex flex-col gap-2">
+    <div v-for="skill in openedCategory" :key="skill.id" class="flex gap-4 items-center bg-red-100">
+      <SkillItem :skill="skill" />
+    </div>
   </div>
 
   <!-- modal -->
@@ -136,10 +138,11 @@ import Modal from '@/Components/Modal.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
+import SkillItem from '@/Pages/Skill/SkillItem.vue'
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 import { useForm, usePage, router } from '@inertiajs/vue3'
-import axios from 'axios';
+
 
 const page = usePage()
 const dogStore = useDogStore();
@@ -200,6 +203,7 @@ onUpdated(() => {
   dogStore.dogs = page.props.dogs
   console.log('updated dogs', dogStore.dogs)
 })
+
 
 
 </script>
