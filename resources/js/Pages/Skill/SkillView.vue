@@ -1,6 +1,6 @@
 <template>
   <div v-if="dogStore.chosenDog">
-    <div  class="flex gap-8 flex-wrap items-center mb-8">
+    <div  class="flex gap-x-8 gap-y-4 flex-wrap items-center mb-8 pr-10">
       <div v-for="categoryObj, index in dogStore.chosenDog.categories" :key="index"
            class="uppercase"
            :class="{'underline font-semibold': openedCategory === categoryObj}">
