@@ -1,7 +1,10 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { computed, ref, watch, watchEffect } from 'vue'
+import { usePage } from '@inertiajs/vue3'
 
 export const useDogStore = defineStore('dog', () => {
+
+    const page = usePage()
 
     // ————————————————————————————————————————————————————————————————————————————————————————————————————
     // STATE
@@ -15,7 +18,22 @@ export const useDogStore = defineStore('dog', () => {
       categories: null
     });
 
+    dogs.value = page.props.dogs
+
     const chosenDog = ref(null);
+
+    if(page.props.dogs.length === 1){
+      chosenDog.value = page.props.dogs[0]
+    }
+
+
+    watch(
+      () => dogs.value.categories,
+      (newVal, oldVal) => {
+        console.log('watcher dogs')
+        chosenDog.value = dogs.value.find(dog => chosenDog.value.id == dog.id)
+      }, { deep: true }
+    )
 
 
     // ————————————————————————————————————————————————————————————————————————————————————————————————————
@@ -23,12 +41,16 @@ export const useDogStore = defineStore('dog', () => {
     // ————————————————————————————————————————————————————————————————————————————————————————————————————
 
 
+
+
     // ————————————————————————————————————————————————————————————————————————————————————————————————————
     // ACTIONS
     // ————————————————————————————————————————————————————————————————————————————————————————————————————
 
-    function chooseDog(value){
-      chosenDog.value = value
+    function chooseDog(id){
+      chosenDog.value = dogs.value.find(dog => id == dog.id)
+      console.log('chosen', chosenDog.value)
+      // daj v url kot /chosenDog="id" mogoce
     }
 
      // ————————————————————————————————————————————————————————————————————————————————————————————————————

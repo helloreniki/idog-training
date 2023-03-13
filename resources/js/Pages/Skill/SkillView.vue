@@ -130,7 +130,7 @@
 
 <script setup>
 import { useDogStore } from '../../../Stores/dog';
-import { ref, computed } from 'vue';
+import { ref, computed, onUpdated, watch } from 'vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import Modal from '@/Components/Modal.vue';
 import InputLabel from '@/Components/InputLabel.vue';
@@ -138,13 +138,15 @@ import TextInput from '@/Components/TextInput.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
-import { useForm } from '@inertiajs/vue3'
+import { useForm, usePage, router } from '@inertiajs/vue3'
+import axios from 'axios';
 
-
+const page = usePage()
 const dogStore = useDogStore();
 
 const categories = computed(() => {
   if(dogStore.chosenDog){
+   // need categories keys
    return Object.keys(dogStore.chosenDog.categories)
   } else {
     return null
@@ -152,17 +154,12 @@ const categories = computed(() => {
 })
 
 
-// console.log(Object.keys(dogStore.chosenDog.categories))
-
-// i need categories keys
 const openedCategory = ref(null)
 const newSkillModalOpened = ref(null)
 const category = ref(null)
 // potem ni zvezan z v-model, read only, mogoce se da set tudi???
 // const category = computed(() => (openedCategory ? openedCategory.category : null))
 const skill = ref('')
-// console.log('oc', openedCategory.value)
-// console.log('sc', category.value)
 
 const showNewCategoryInput = ref(false)
 
@@ -183,15 +180,26 @@ function openNewSkillModal(){
   newSkillModalOpened.value = true
 }
 
+
 function submitForm(){
   form.post("/skills-to-learn", {
     preserveScroll: true,
+    preserveState: false,
     onSuccess: () => {
       form.reset()
       newSkillModalOpened.value = false
+      // must reload to update page.props.dogs, otherwise page props stay the same
+      router.reload('/skills-to-learn')
+      // console.log(page.props.dogs) // se vedno niso updatani propsi
     },
-
   })
 }
+
+onUpdated(() => {
+  // console.log('updated props', page.props.dogs) // sele tukaj se updatajo propsi
+  dogStore.dogs = page.props.dogs
+  console.log('updated dogs', dogStore.dogs)
+})
+
 
 </script>

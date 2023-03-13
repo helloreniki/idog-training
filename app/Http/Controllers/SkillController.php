@@ -10,7 +10,7 @@ class SkillController extends Controller
 {
     public function index()
     {
-      return inertia('Skill/SkillView');
+      return inertia('Skill/SkillView'); // podatke dobi iz page.props shared data
     }
 
     public function store()
@@ -27,7 +27,7 @@ class SkillController extends Controller
 
       $skill = Skill::create($data);
 
-      // find dog attach this skill to pivot table
+      // attach dogs to skill on pivot table
       $dog_ids = request('dog_ids');
       $skill->dogs()->attach($dog_ids);
 
