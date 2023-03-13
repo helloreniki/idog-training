@@ -2,7 +2,7 @@
   <div v-if="dogStore.chosenDog">
     <div  class="flex gap-x-8 gap-y-4 flex-wrap items-center mb-8 pr-10">
       <div v-for="categoryObj, index in dogStore.chosenDog.categories" :key="index"
-           class="uppercase"
+           class="uppercase text-xl"
            :class="{'underline font-semibold': openedCategory === categoryObj}">
         <div @click="openCategory(categoryObj)" class="cursor-pointer">{{index}}</div>
       </div>
@@ -12,8 +12,8 @@
 
   <div v-else class="text-sm text-red-500">Please choose a dog first. Above.</div>
 
-  <div v-if="openedCategory" class="mt-8 flex flex-col gap-2">
-    <div v-for="skill in openedCategory" :key="skill.id" class="flex gap-4 items-center bg-red-100">
+  <div v-if="openedCategory" class="mt-8 flex flex-col pr-10">
+    <div v-for="skill in openedCategory" :key="skill.id" class="flex gap-3 px-4 py-2 items-center odd:bg-white">
       <SkillItem :skill="skill" />
     </div>
   </div>

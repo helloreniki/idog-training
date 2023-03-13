@@ -1,9 +1,9 @@
 <template>
-  <p class="capitalize text-xl">{{ props.skill.name }}</p>
-  <div class="text-sm flex gap-2 items-center">
-    <input type="radio" v-model="form.status" value="todo" class="ml-1" @change="submitSkillStatus" />Todo
-    <input type="radio" v-model="form.status" value="in_progress" class="ml-1" @change="submitSkillStatus" />In progress
-    <input type="radio" v-model="form.status" value="done" class="ml-1" @change="submitSkillStatus" />Done
+  <p class="capitalize text-xl font-semibold">{{ props.skill.name }}</p>
+  <div class="text-sm flex gap-2 items-center text-gray-700">
+    <input type="radio" v-model="form.status" value="todo" class="ml-1 text-pink-400 focus:ring-pink-400" @change="submitSkillStatus" />Todo
+    <input type="radio" v-model="form.status" value="in_progress" class="ml-1 text-yellow-400 focus:ring-yellow-400" @change="submitSkillStatus" />In progress
+    <input type="radio" v-model="form.status" value="done" class="ml-1 text-green-400 focus:ring-green-400" @change="submitSkillStatus" />Done
   </div>
 </template>
 
