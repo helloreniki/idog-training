@@ -2,14 +2,7 @@
   <AuthenticatedLayout>
 
     <div v-if="dogStore.chosenDog">
-      <div  class="flex gap-x-8 gap-y-4 flex-wrap items-center mb-8 pr-10">
-        <div v-for="categoryObj, index in dogStore.chosenDog.categories" :key="index"
-             class="uppercase text-xl"
-             :class="{'underline font-semibold': openedCategory === categoryObj}">
-          <div @click="openCategory(categoryObj)" class="cursor-pointer">{{index}}</div>
-        </div>
-      </div>
-      <PrimaryButton @click="openNewSkillModal">Add new Skill</PrimaryButton>
+      <CategoriesTab @addSkill="openNewSkillModal" @openCategory="openCategory" :openedCategory="openedCategory"/>
     </div>
 
     <div v-else class="text-sm text-red-500">Please choose a dog first. Above.</div>
@@ -143,6 +136,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import SkillItem from '@/Pages/Skill/SkillItem.vue'
+import CategoriesTab from './CategoriesTab.vue';
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 import { useForm, usePage, router } from '@inertiajs/vue3'
@@ -150,6 +144,8 @@ import { useForm, usePage, router } from '@inertiajs/vue3'
 
 const page = usePage()
 const dogStore = useDogStore();
+
+const emit = defineEmits(['addSkill', 'openCategory'])
 
 const categories = computed(() => {
   if(dogStore.chosenDog){
@@ -179,8 +175,8 @@ const form = useForm({
 })
 
 function openCategory(categoryObj) {
+  // console.log('category passed from CategoriesTab', categoryObj)
   openedCategory.value = categoryObj
-  // console.log(openedCategory.value)
 }
 
 function openNewSkillModal(){
