@@ -53,7 +53,6 @@ export const useDogStore = defineStore('dog', () => {
       openedCategory.value = null
       console.log('openedCAtegory', openedCategory.value)
       console.log('chosen', chosenDog.value)
-      // daj v url kot /chosenDog="id" mogoce
     }
 
      // ————————————————————————————————————————————————————————————————————————————————————————————————————

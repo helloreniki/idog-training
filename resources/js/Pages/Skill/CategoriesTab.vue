@@ -15,10 +15,6 @@ import PrimaryButton from '@/Components/PrimaryButton.vue'
 
 const dogStore = useDogStore()
 
-// const props = defineProps({
-//   openedCategory: Object
-// })
-
 const emit = defineEmits(['addSkill'])
 
 function openCategory(value){

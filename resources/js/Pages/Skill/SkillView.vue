@@ -30,13 +30,9 @@
           <!-- category -->
           <div v-if="showNewCategoryInput === false" class="w-full flex flex-col gap-4">
             <InputLabel for="category" value="Choose category" />
-
             <SelectListbox :options="categories" v-model="form.category" />
-
             <div v-if="form.errors.category" class="text-sm text-red-500">{{ form.errors.category }}</div>
-
             <SecondaryButton type="button" @click="showNewCategoryInput = true" class="self-start">or input new Category</SecondaryButton>
-
           </div>
           <div v-if="showNewCategoryInput" class="flex flex-col gap-4">
             <InputLabel value="New Category" />
@@ -52,8 +48,8 @@
 
           <!-- description -->
           <InputLabel for="description" value="Description" />
-          <div v-if="form.errors.description" class="text-sm text-red-500">{{ form.errors.description }}</div>
           <TextInput v-model="form.description" class="px-2 py-1 border border-gray-500 shadow-md" />
+          <div v-if="form.errors.description" class="text-sm text-red-500">{{ form.errors.description }}</div>
 
           <!-- status -->
           <div class="flex gap-2 items-center">
@@ -101,13 +97,8 @@ const categories = computed(() => {
 })
 
 
-// const openedCategory = ref(null)
+// const openedCategory = ref(null) // from categoryTab to dogStore: access everywhere, can set to null at dog change
 const newSkillModalOpened = ref(null)
-const category = ref(null)
-// potem ni zvezan z v-model, read only, mogoce se da set tudi???
-// const category = computed(() => (openedCategory ? openedCategory.category : null))
-const skill = ref('')
-
 const showNewCategoryInput = ref(false)
 
 const form = useForm({
@@ -118,15 +109,9 @@ const form = useForm({
   dog_ids: [],
 })
 
-// function openCategory(categoryObj) {
-//   // console.log('category passed from CategoriesTab', categoryObj)
-//   openedCategory.value = categoryObj
-// }
-
 function openNewSkillModal(){
   newSkillModalOpened.value = true
 }
-
 
 function submitForm(){
   form.post("/skills-to-learn", {
@@ -147,7 +132,5 @@ onUpdated(() => {
   dogStore.dogs = page.props.dogs
   console.log('updated dogs', dogStore.dogs)
 })
-
-
 
 </script>
