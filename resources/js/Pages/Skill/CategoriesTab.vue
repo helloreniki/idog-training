@@ -1,7 +1,7 @@
 <template>
- <div  class="flex gap-x-8 gap-y-4 flex-wrap items-center mb-8 pr-10">
+ <div  class="flex gap-4 md:gap-x-8 md:gap-y-4 flex-wrap items-center mb-8 pr-10">
   <div v-for="categoryObj, index in dogStore.chosenDog.categories" :key="index"
-        class="uppercase text-xl"
+        class="uppercase lg:text-xl"
         :class="{'underline font-semibold': dogStore.openedCategory === categoryObj}">
     <div @click="openCategory(categoryObj)" class="cursor-pointer">{{index}}</div>
   </div>

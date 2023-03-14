@@ -32,7 +32,7 @@ const showingNavigationDropdown = ref(false);
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
+                                    Dog Training App
                                 </NavLink>
                             </div>
                         </div>
@@ -139,7 +139,7 @@ const showingNavigationDropdown = ref(false);
             </nav>
             <DogNav />
             <!-- Page Content -->
-            <main class="flex gap-8">
+            <main class="flex gap-4 md:gap-8">
                 <Sidebar class="" />
                 <div class="my-6">
                   <slot />
