@@ -2,7 +2,7 @@
  <div  class="flex gap-x-8 gap-y-4 flex-wrap items-center mb-8 pr-10">
   <div v-for="categoryObj, index in dogStore.chosenDog.categories" :key="index"
         class="uppercase text-xl"
-        :class="{'underline font-semibold': props.openedCategory === categoryObj}">
+        :class="{'underline font-semibold': dogStore.openedCategory === categoryObj}">
     <div @click="openCategory(categoryObj)" class="cursor-pointer">{{index}}</div>
   </div>
 </div>
@@ -15,16 +15,14 @@ import PrimaryButton from '@/Components/PrimaryButton.vue'
 
 const dogStore = useDogStore()
 
-const props = defineProps({
-  openedCategory: Object
-})
+// const props = defineProps({
+//   openedCategory: Object
+// })
 
-const emit = defineEmits(['addSkill', 'openCategory'])
+const emit = defineEmits(['addSkill'])
 
 function openCategory(value){
-  console.log('value', value)
-  emit('openCategory', value)
-  console.log('emitting')
+  dogStore.openedCategory = value
 }
 
 </script>

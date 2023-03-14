@@ -2,13 +2,13 @@
   <AuthenticatedLayout>
 
     <div v-if="dogStore.chosenDog">
-      <CategoriesTab @addSkill="openNewSkillModal" @openCategory="openCategory" :openedCategory="openedCategory"/>
+      <CategoriesTab @addSkill="openNewSkillModal" />
     </div>
 
     <div v-else class="text-sm text-red-500">Please choose a dog first. Above.</div>
 
-    <div v-if="openedCategory" class="mt-8 flex flex-col pr-10">
-      <div v-for="skill in openedCategory" :key="skill.id" class="flex gap-3 px-4 py-2 items-center odd:bg-white">
+    <div v-if="dogStore.openedCategory" class="mt-8 flex flex-col pr-10">
+      <div v-for="skill in dogStore.openedCategory" :key="skill.id" class="flex gap-3 px-4 py-2 items-center odd:bg-white">
         <SkillItem :skill="skill" />
       </div>
     </div>
@@ -101,7 +101,7 @@ const categories = computed(() => {
 })
 
 
-const openedCategory = ref(null)
+// const openedCategory = ref(null)
 const newSkillModalOpened = ref(null)
 const category = ref(null)
 // potem ni zvezan z v-model, read only, mogoce se da set tudi???
@@ -118,10 +118,10 @@ const form = useForm({
   dog_ids: [],
 })
 
-function openCategory(categoryObj) {
-  // console.log('category passed from CategoriesTab', categoryObj)
-  openedCategory.value = categoryObj
-}
+// function openCategory(categoryObj) {
+//   // console.log('category passed from CategoriesTab', categoryObj)
+//   openedCategory.value = categoryObj
+// }
 
 function openNewSkillModal(){
   newSkillModalOpened.value = true

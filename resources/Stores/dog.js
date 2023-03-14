@@ -26,6 +26,7 @@ export const useDogStore = defineStore('dog', () => {
       chosenDog.value = page.props.dogs[0]
     }
 
+    const openedCategory = ref(null)
 
     watch(
       () => dogs.value.categories,
@@ -49,6 +50,8 @@ export const useDogStore = defineStore('dog', () => {
 
     function chooseDog(id){
       chosenDog.value = dogs.value.find(dog => id == dog.id)
+      openedCategory.value = null
+      console.log('openedCAtegory', openedCategory.value)
       console.log('chosen', chosenDog.value)
       // daj v url kot /chosenDog="id" mogoce
     }
@@ -57,6 +60,6 @@ export const useDogStore = defineStore('dog', () => {
     // RETURN
     // ————————————————————————————————————————————————————————————————————————————————————————————————————
 
-    return { dogs, chosenDog, chooseDog }
+    return { dogs, chosenDog, chooseDog, openedCategory }
 
 })
