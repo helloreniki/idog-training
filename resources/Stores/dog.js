@@ -37,30 +37,16 @@ export const useDogStore = defineStore('dog', () => {
     )
 
 
-    const allSkillsForChosenDog = ref([])
-    const randomSkill = ref(null)
-
     watch(
       chosenDog,
       (newVal, oldVal) => {
         // console.log('here', Object.values(chosenDog.value.categories))
-        Object.values(chosenDog.value.categories).map(categoryObj => {
-            // console.log(categoryObj) agi -> skill, skill, skill, tricks -> skil, skill,...
-            categoryObj.map(skill => {
-              // console.log(skill)
-              return allSkillsForChosenDog.value.push({
-                id: skill.id,
-                name: skill.name,
-                status: skill.status,
-                category: skill.category
-              })
-            })
-          })
+          getAllSkills()
           const randomNumber = ref(Math.floor(Math.random() * allSkillsForChosenDog.value.length))
           randomSkill.value = allSkillsForChosenDog.value[randomNumber.value]
           console.log('randomNo', randomNumber.value) // 56
           // console.log('all', allSkillsForChosenDog.value)
-          console.log('randomSkill', randomSkill.value) 
+          console.log('randomSkill', randomSkill.value)
       }
     )
 
@@ -76,6 +62,25 @@ export const useDogStore = defineStore('dog', () => {
       openedCategory.value = null
       console.log('openedCAtegory', openedCategory.value)
       console.log('chosen', chosenDog.value)
+    }
+
+
+    const allSkillsForChosenDog = ref([])
+    const randomSkill = ref(null)
+
+    function getAllSkills(){
+      Object.values(chosenDog.value.categories).map(categoryObj => {
+        // console.log(categoryObj) agi -> skill, skill, skill, tricks -> skil, skill,...
+        categoryObj.map(skill => {
+          // console.log(skill)
+          return allSkillsForChosenDog.value.push({
+            id: skill.id,
+            name: skill.name,
+            status: skill.status,
+            category: skill.category
+          })
+        })
+      })
     }
 
      // ————————————————————————————————————————————————————————————————————————————————————————————————————
