@@ -1,8 +1,8 @@
 <template>
   <div class="relative flex flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5 pb-4 pr-3 min-h-screen min-w-fit">
     <div @click="sidebarOpened = !sidebarOpened" class="py-2">
-      <XCircleIcon v-if="sidebarOpened" class="absolute top-2 right-2 w-6 h-6 text-violet-600 hover:text-violet-800" />
-      <EllipsisHorizontalIcon v-else class="absolute top-2 right-2 w-6 h-6 text-violet-600 hover:text-violet-800" />
+      <XCircleIcon v-if="sidebarOpened" class="absolute top-2 right-2 w-6 h-6 text-indigo-600 hover:text-indigo-800" />
+      <EllipsisHorizontalIcon v-else class="absolute top-2 left-4 w-6 h-6 text-indigo-600 hover:text-indigo-800" />
     </div>
     <div class="mt-5 sm:flex flex-grow flex-col">
       <nav class="flex-1 space-y-1 bg-white" aria-label="Sidebar">
@@ -25,11 +25,11 @@
 </template>
 
 <script setup>
-import { CalendarIcon, ChartBarIcon, FolderIcon, HomeIcon, InboxIcon, UsersIcon, XCircleIcon } from '@heroicons/vue/24/outline'
+import { CalendarIcon, ChartBarIcon, FolderIcon, HomeIcon, InboxIcon, UsersIcon, XCircleIcon, EllipsisHorizontalIcon } from '@heroicons/vue/24/outline'
 import { useDogStore } from '../../Stores/dog.js'
 import { usePage } from '@inertiajs/vue3'
 import { computed, ref } from 'vue';
-import { EllipsisHorizontalIcon } from '@heroicons/vue/20/solid';
+
 
 const page = usePage()
 // const dogStore = useDogStore()
