@@ -5,7 +5,14 @@
       <CategoriesTab @addSkill="openNewSkillModal" />
     </div>
 
-    <div v-else class="text-sm text-red-500 mt-3">Please choose or add a dog in navigation first.</div>
+    <div v-if="!dogStore.chosenDog">
+      <PrimaryButton class="m">Add a dog</PrimaryButton>
+      <div v-if="dogStore.dogs.length > 0" class="flex gap-4 my-4">
+        <div class="font-semibold">Choose a dog:</div>
+        <div v-for="dog in dogStore.dogs" :key="dog.id" @click="dogStore.chooseDog(dog.id)" class="cursor-pointer">{{ dog.name }}</div>
+      </div>
+      <div class="text-red-500 text-sm my-3">Please choose or add a dog first.</div>
+    </div>
 
     <div v-if="dogStore.openedCategory" class="mt-8 flex flex-col pr-10">
       <div v-for="skill in dogStore.openedCategory" :key="skill.id" class="flex flex-col lg:flex-row gap-3 px-4 py-2 items-center odd:bg-white">
