@@ -2,6 +2,8 @@
 
 ## About
 
+In progress...
+
 Dog Training App is Laravel 10, Inertia, Vue3 application that tracks your dog's training.
 User can:
 * register and login to the application
@@ -12,6 +14,7 @@ User can:
   * add new skill with category (select from dropdown or add new one) and status(to learn, in progress, done)
   * choose category and see all dog's skills
   * edit status of a skill for that dog (todo, in progress, done)
+
   TODO:
   * add training
   * see all upcomming, past trainings with notes
@@ -35,4 +38,5 @@ clone repository, adjust .env, create database
 ## Credentials
 
 username: test@example.com
+
 password: password
