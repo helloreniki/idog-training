@@ -5,7 +5,7 @@
       <CategoriesTab @addSkill="openNewSkillModal" />
     </div>
 
-    <div v-else class="text-sm text-red-500">Please choose a dog first. Above.</div>
+    <div v-else class="text-sm text-red-500 mt-3">Please choose or add a dog in navigation first.</div>
 
     <div v-if="dogStore.openedCategory" class="mt-8 flex flex-col pr-10">
       <div v-for="skill in dogStore.openedCategory" :key="skill.id" class="flex flex-col lg:flex-row gap-3 px-4 py-2 items-center odd:bg-white">

@@ -1,13 +1,14 @@
 <template>
   <AuthenticatedLayout>
     <Head title="Dashboard" />
-    Number of skills: {{ dogStore.allSkillsForChosenDog.length }}
+    <p class="text-gray-400 text-sm"> Number of all skills: {{ dogStore.allSkillsForChosenDog.length }} </p>
     <div class="text-3xl font-semibold mb-8">Random skill to practice on:</div>
     <div v-if="dogStore.randomSkill">
       <div class="capitalize font-semibold text-xl">{{ dogStore.randomSkill.name }}
         <span class="font-normal text-base"> - Category: {{ dogStore.randomSkill.category }}</span>
       </div>
     </div>
+    <div v-else class="text-red-500 text-sm mt-3">Please choose or add a dog in navigation first.</div>
 
     <div class="mt-16">
       <h1>TODO</h1>
