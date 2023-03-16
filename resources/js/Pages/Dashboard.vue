@@ -3,7 +3,7 @@
     <Head title="Dashboard" />
     <!-- <p class="text-gray-400 text-sm"> Number of all skills: {{ dogStore.allSkillsForChosenDog.length }} </p> -->
     <div v-if="!dogStore.chosenDog">
-      <PrimaryButton class="m">Add a dog</PrimaryButton>
+      <PrimaryButton  @click="openNewDogModal = true">Add a dog</PrimaryButton>
       <div v-if="dogStore.dogs.length > 0" class="flex gap-4 my-4">
         <div class="font-semibold">Choose a dog:</div>
         <div v-for="dog in dogStore.dogs" :key="dog.id" @click="dogStore.chooseDog(dog.id)" class="cursor-pointer">{{ dog.name }}</div>
@@ -17,6 +17,11 @@
         <span class="font-normal text-base"> - Category: {{ dogStore.randomSkill.category }}</span>
       </div>
     </div>
+
+     <!-- modal new dog -->
+     <Modal :show="openNewDogModal" @close="openNewDogModal = false">
+      <FormNewDog @formSubmitted="openNewDogModal = false" />
+    </Modal>
 
     <div class="mt-16">
       <h1>TODO</h1>
@@ -37,10 +42,13 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue'
+import Modal from '@/Components/Modal.vue'
+import FormNewDog from '@/Parts/FormNewDog.vue'
 import { useDogStore } from '../../Stores/dog.js'
 import { ref, watch, computed } from 'vue'
 
 const dogStore = useDogStore()
+const openNewDogModal = ref(false)
 
 
 </script>
