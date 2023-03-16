@@ -69,6 +69,8 @@ export const useDogStore = defineStore('dog', () => {
     const randomSkill = ref(null)
 
     function getAllSkills(){
+      // set allSkills to empty array everytime you change a dog, otherwise it will just add again the same skills
+      allSkillsForChosenDog.value = []
       Object.values(chosenDog.value.categories).map(categoryObj => {
         // console.log(categoryObj) agi -> skill, skill, skill, tricks -> skil, skill,...
         categoryObj.map(skill => {
