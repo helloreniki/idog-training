@@ -40,7 +40,7 @@ export const useDogStore = defineStore('dog', () => {
     watch(
       chosenDog,
       (newVal, oldVal) => {
-        // console.log('here', Object.values(chosenDog.value.categories))
+        console.log('here', Object.values(chosenDog.value.categories))
           getAllSkills()
           const randomNumber = ref(Math.floor(Math.random() * allSkillsForChosenDog.value.length))
           randomSkill.value = allSkillsForChosenDog.value[randomNumber.value]

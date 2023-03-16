@@ -41,9 +41,9 @@ const component = computed(() => page.component)
 const navigation = [
   { name: 'Dashboard', icon: HomeIcon, href: '/', current: component.value == 'Dashboard' },
   { name: 'To Learn', icon: UsersIcon, href: '/skills-to-learn', current: component.value == 'Skill/SkillView' },
-  { name: 'Training', icon: FolderIcon, href: '#', current: false },
-  { name: 'Trials', icon: CalendarIcon, href: '#', current: false },
-  { name: 'My Skills', icon: InboxIcon, href: '#', current: false }
+  { name: 'Training', icon: FolderIcon, href: '/training', current: component.value == 'Training/TrainingView' },
+  { name: 'Trials', icon: CalendarIcon, href: '/trial', current: component.value == 'Trial/TrialView' },
+  { name: 'Dog Profile', icon: InboxIcon, href: '/dog-profile', current: component.value == 'DogProfile/DogProfileView' }
 ]
 
 </script>
