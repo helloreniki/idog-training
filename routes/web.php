@@ -32,7 +32,7 @@ Route::get('/training', [TrainingController::class, 'index'])->middleware(['auth
 Route::get('/trial', [TrialController::class, 'index'])->middleware(['auth', 'verified'])->name('trial.index');
 Route::get('/dog-profile', [DogProfileController::class, 'index'])->middleware(['auth', 'verified'])->name('dogprofile.index');
 
-
+Route::post('/dog', [DogProfileController::class, 'store'])->middleware(['auth', 'verified'])->name('dogprofile.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

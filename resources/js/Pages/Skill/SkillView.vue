@@ -6,10 +6,10 @@
     </div>
 
     <div v-if="!dogStore.chosenDog">
-      <PrimaryButton class="m">Add a dog</PrimaryButton>
-      <div v-if="dogStore.dogs.length > 0" class="flex gap-4 my-4">
+      <PrimaryButton @click="openNewDogModal = true">Add a dog</PrimaryButton>
+      <div v-if="$page.props.dogs.length > 0" class="flex gap-4 my-4">
         <div class="font-semibold">Choose a dog:</div>
-        <div v-for="dog in dogStore.dogs" :key="dog.id" @click="dogStore.chooseDog(dog.id)" class="cursor-pointer">{{ dog.name }}</div>
+        <div v-for="dog in $page.props.dogs" :key="dog.id" @click="dogStore.chooseDog(dog.id)" class="cursor-pointer">{{ dog.name }}</div>
       </div>
       <div class="text-red-500 text-sm my-3">Please choose or add a dog first.</div>
     </div>
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <!-- modal -->
+    <!-- modal skill -->
     <Modal :show="newSkillModalOpened" @close="newSkillModalOpened = false">
       <div class="p-8">
         <h1 class="text-2xl font-semibold">Add New Skill</h1>
@@ -67,6 +67,28 @@
           <div v-if="form.errors.status" class="text-sm text-red-500">{{ form.errors.status }}</div>
 
           <PrimaryButton :disabled="form.processing" class="self-start mt-6">Add new skill</PrimaryButton>
+        </form>
+      </div>
+    </Modal>
+
+    <!-- modal new dog -->
+    <Modal :show="openNewDogModal" @close="openNewDogModal = false">
+      <div class="p-8">
+        <h1 class="text-2xl font-semibold">Add new dog</h1>
+        <form @submit.prevent="submitDogForm" class="flex flex-col gap-4 my-6">
+          <InputLabel value="Dog name" />
+          <TextInput v-model="formDog.name" class="px-2 py-1 border border-gray-500 shadow-md" />
+          <!-- <div v-if="formDog.errors.name" class="text-sm text-red-500">{{ formDog.errors.name }}</div> -->
+
+          <InputLabel value="Breed" />
+          <TextInput v-model="formDog.breed" class="px-2 py-1 border border-gray-500 shadow-md" />
+          <!-- <div v-if="formDog.errors.breed" class="text-sm text-red-500">{{ formDog.errors.breed }}</div> -->
+
+          <InputLabel value="Date of birth" />
+          <TextInput type="date" v-model="formDog.dob" class="px-2 py-1 border border-gray-500 shadow-md" />
+          <!-- <div v-if="formDog.errors.dob" class="text-sm text-red-500">{{ formDog.errors.dob }}</div> -->
+
+          <PrimaryButton class="self-start">Add new dog</PrimaryButton>
         </form>
       </div>
     </Modal>
@@ -139,5 +161,22 @@ onUpdated(() => {
   dogStore.dogs = page.props.dogs
   console.log('updated dogs', dogStore.dogs)
 })
+
+const openNewDogModal = ref(false)
+
+const formDog = useForm({
+  name: null,
+  breed: null,
+  dob: null,
+})
+
+function submitDogForm() {
+  formDog.post('/dog', {
+    onSuccess: () => {
+      formDog.reset()
+      openNewDogModal.value = false
+    }
+  })
+}
 
 </script>

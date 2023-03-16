@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { computed, ref, watch, watchEffect } from 'vue'
+import { computed, ref, watch, watchEffect, toRef, isRef } from 'vue'
 import { usePage } from '@inertiajs/vue3'
 
 export const useDogStore = defineStore('dog', () => {
@@ -19,6 +19,19 @@ export const useDogStore = defineStore('dog', () => {
     });
 
     dogs.value = page.props.dogs
+    console.log('page props', isRef(page.props.dogs)) // false
+    console.log('page props', toRef(page.props.dogs)) // proxy
+    // console.log('page props', isRef(page.props.dogs)) // proxy
+
+
+    // ne dela? ne toRef, toRefs, brez ???
+    // watch(
+    //   () => toRef(page.props.dogs), // a ta se ima reactivity, ali jo izgubi, ker nested
+    //   (newVal, oldVal) => {
+    //     console.log('watcher page props dogs')
+    //     dogs.value = page.props.dogs
+    //   }, { deep: true }
+    // )
 
     const chosenDog = ref(null);
 
