@@ -35,13 +35,13 @@
           </div>
 
           <!-- category -->
-          <div v-if="showNewCategoryInput === false" class="w-full flex flex-col gap-4">
+          <div v-if="showNewCategoryInput === false && dogStore.chosenDog.categories.length > 0" class="w-full flex flex-col gap-4">
             <InputLabel for="category" value="Choose category" />
             <SelectListbox :options="categories" v-model="form.category" />
             <div v-if="form.errors.category" class="text-sm text-red-500">{{ form.errors.category }}</div>
             <SecondaryButton type="button" @click="showNewCategoryInput = true" class="self-start">or input new Category</SecondaryButton>
           </div>
-          <div v-if="showNewCategoryInput" class="flex flex-col gap-4">
+          <div v-if="showNewCategoryInput || dogStore.chosenDog.categories.length == 0" class="flex flex-col gap-4">
             <InputLabel value="New Category" />
             <TextInput v-model="form.category" class="px-2 py-1 border border-gray-500 shadow-md" />
             <div v-if="form.errors.category" class="text-sm text-red-500">{{ form.errors.category }}</div>

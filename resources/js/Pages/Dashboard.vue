@@ -26,8 +26,8 @@
     <div class="mt-16">
       <h1>TODO</h1>
       <ul>
-        <li>show upcomming trainings</li>
-        <li>show upcomming trials</li>
+        <li>show upcoming trainings</li>
+        <li>show upcoming trials</li>
         <li></li>
       </ul>
     </div>
