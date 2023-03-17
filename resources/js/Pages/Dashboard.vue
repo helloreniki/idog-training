@@ -1,12 +1,14 @@
 <template>
   <AuthenticatedLayout>
     <Head title="Dashboard" />
+    <!-- {{ user.name }} -->
+    <!-- {{ $page.props.auth.user.name }} -->
     <!-- <p class="text-gray-400 text-sm"> Number of all skills: {{ dogStore.allSkillsForChosenDog.length }} </p> -->
     <div v-if="!dogStore.chosenDog">
       <PrimaryButton  @click="openNewDogModal = true">Add a dog</PrimaryButton>
-      <div v-if="dogStore.dogs.length > 0" class="flex gap-4 my-4">
+      <div v-if="$page.props.dogs.length > 0" class="flex gap-4 my-4">
         <div class="font-semibold">Choose a dog:</div>
-        <div v-for="dog in dogStore.dogs" :key="dog.id" @click="dogStore.chooseDog(dog.id)" class="cursor-pointer">{{ dog.name }}</div>
+        <div v-for="dog in $page.props.dogs" :key="dog.id" @click="dogStore.chooseDog(dog.id)" class="cursor-pointer">{{ dog.name }}</div>
       </div>
       <div class="text-red-500 text-sm my-3">Please choose or add a dog first.</div>
     </div>
@@ -45,10 +47,14 @@ import PrimaryButton from '@/Components/PrimaryButton.vue'
 import Modal from '@/Components/Modal.vue'
 import FormNewDog from '@/Parts/FormNewDog.vue'
 import { useDogStore } from '../../Stores/dog.js'
-import { ref, watch, computed } from 'vue'
+import { ref, watch, watchEffect, computed, onUpdated } from 'vue'
+import { usePage } from '@inertiajs/vue3';
 
+const page = usePage()
 const dogStore = useDogStore()
 const openNewDogModal = ref(false)
+
+const user = computed(() => page.props.auth.user)
 
 
 </script>

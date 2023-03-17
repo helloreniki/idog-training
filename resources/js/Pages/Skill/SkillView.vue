@@ -5,8 +5,8 @@
       <CategoriesTab @addSkill="openNewSkillModal" />
     </div>
 
+    <PrimaryButton @click="openNewDogModal = true" class="my-4">Add a dog</PrimaryButton>
     <div v-if="!dogStore.chosenDog">
-      <PrimaryButton @click="openNewDogModal = true">Add a dog</PrimaryButton>
       <div v-if="$page.props.dogs.length > 0" class="flex gap-4 my-4">
         <div class="font-semibold">Choose a dog:</div>
         <div v-for="dog in $page.props.dogs" :key="dog.id" @click="dogStore.chooseDog(dog.id)" class="cursor-pointer">{{ dog.name }}</div>
@@ -27,7 +27,7 @@
         <!-- FORM -->
         <form @submit.prevent="submitForm" class="flex flex-col gap-4 my-6">
           <!-- dogs -->
-          <div class="flex gap-4 items-center">
+          <div class="flex flex-wrap gap-4 items-center">
             <div v-for="dog in dogStore.dogs">
               <input type="checkbox" v-model="form.dog_ids" :value="dog.id"> {{ dog.name }}
             </div>
@@ -35,7 +35,7 @@
           </div>
 
           <!-- category -->
-          <div v-if="showNewCategoryInput === false && dogStore.chosenDog.categories.length > 0" class="w-full flex flex-col gap-4">
+          <div v-if="showNewCategoryInput === false || dogStore.chosenDog.categories.length > 0" class="w-full flex flex-col gap-4">
             <InputLabel for="category" value="Choose category" />
             <SelectListbox :options="categories" v-model="form.category" />
             <div v-if="form.errors.category" class="text-sm text-red-500">{{ form.errors.category }}</div>
