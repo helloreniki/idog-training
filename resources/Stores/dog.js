@@ -11,61 +11,34 @@ export const useDogStore = defineStore('dog', () => {
     // ————————————————————————————————————————————————————————————————————————————————————————————————————
 
     const dogs = ref(null);
-
     dogs.value = page.props.dogs
-    
-    // const dogs = computed(() => { return page.props.dogs })
-    // console.log('dogs', dogs.value)
-    // console.log('page props', isRef(page.props.dogs)) // false
-    // console.log('page props', toRef(page.props.dogs)) // proxy
-    // console.log('page props', isRef(page.props.dogs)) // proxy
-
-
-    // ne dela? ne toRef, toRefs, brez ???
-    // watch(
-    //   () => toRef(page.props.dogs), // a ta se ima reactivity, ali jo izgubi, ker nested
-    //   (newVal, oldVal) => {
-    //     console.log('watcher page props dogs')
-    //     dogs.value = page.props.dogs
-    //   }, { deep: true }
-    // )
-
+    // const user = computed(() => page.props.auth.user )
     const chosenDog = ref(null);
 
-    if(page.props.dogs.length === 1){
-      chosenDog.value = page.props.dogs[0]
-    }
+    // if(page.props.dogs.length === 1){
+    //   chosenDog.value = page.props.dogs[0]
+    // }
+    // console.log('chosenDog store', chosenDog)
 
     const openedCategory = ref(null)
 
-    // watch(
-    //   () => dogs.value.categories, // a ta se ima reactivity, ali jo izgubi, ker nested
-    //   (newVal, oldVal) => {
-    //     console.log('watcher dogs')
-    //     chosenDog.value = dogs.value.find(dog => chosenDog.value.id == dog.id)
-    //   }, { deep: true }
-    // )
+    const allSkillsForChosenDog = ref([])
+    const randomSkill = ref(null)
 
-
-  watch(
-    chosenDog,
-    (newVal, oldVal) => {
-      console.log('chosenDog watcher')
-      console.log('chosenDog', chosenDog)
-      if(chosenDog?.value.categories){
-        getAllSkills()
-        const randomNumber = ref(Math.floor(Math.random() * allSkillsForChosenDog.value.length))
-        randomSkill.value = allSkillsForChosenDog.value[randomNumber.value]
-        console.log('randomNo', randomNumber.value) // 56
-        // console.log('all', allSkillsForChosenDog.value)
-        console.log('randomSkill', randomSkill.value)
+    watch(
+      chosenDog,
+      (newVal, oldVal) => {
+        console.log('chosenDog watcher')
+        // console.log('chosenDog', chosenDog)
+        if(chosenDog.value){
+          getAllSkills()
+          getRandomSkill()
+          // console.log('randomNo', randomNumber.value) // 56
+          // console.log('all', allSkillsForChosenDog.value)
+          console.log('randomSkill', randomSkill.value)
+        }
       }
-    }
-  )
-
-
-
-
+    )
 
 
     // ————————————————————————————————————————————————————————————————————————————————————————————————————
@@ -75,13 +48,11 @@ export const useDogStore = defineStore('dog', () => {
     function chooseDog(id){
       chosenDog.value = dogs.value.find(dog => id == dog.id)
       openedCategory.value = null
+      getAllSkills()
+      getRandomSkill()
       // console.log('openedCAtegory', openedCategory.value)
       console.log('chosen', chosenDog.value)
     }
-
-
-    const allSkillsForChosenDog = ref([])
-    const randomSkill = ref(null)
 
     function getAllSkills(){
       // set allSkills to empty array everytime you change a dog, otherwise it will just add again the same skills
@@ -100,10 +71,29 @@ export const useDogStore = defineStore('dog', () => {
       })
     }
 
+    function getRandomSkill(){
+      const randomNumber = ref(Math.floor(Math.random() * allSkillsForChosenDog.value.length))
+      return randomSkill.value = allSkillsForChosenDog.value[randomNumber.value]
+    }
+
+    // watch(
+    //   () => user,
+    //   (newVal, oldVal) => {
+    //     console.log('watcher user computedRef')
+    //     chosenDog.value = null
+    //     dogs.value = page.props.dogs
+    //     // getAllSkills()
+    //     // getRandomSkill()
+    //   }, {
+    //        immediate: true,
+    //        deep: true
+    //       }
+    // )
+
      // ————————————————————————————————————————————————————————————————————————————————————————————————————
     // RETURN
     // ————————————————————————————————————————————————————————————————————————————————————————————————————
 
-    return { dogs, chosenDog, chooseDog, openedCategory, allSkillsForChosenDog, randomSkill }
+    return { dogs, chosenDog, chooseDog, openedCategory, allSkillsForChosenDog, randomSkill, getRandomSkill }
 
 })

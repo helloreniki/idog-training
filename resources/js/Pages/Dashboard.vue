@@ -1,8 +1,8 @@
 <template>
   <AuthenticatedLayout>
     <Head title="Dashboard" />
-    <!-- {{ user.name }} -->
-    <!-- {{ $page.props.auth.user.name }} -->
+    <!-- {{ user.name }}
+    {{ $page.props.auth.user.name }} -->
     <!-- <p class="text-gray-400 text-sm"> Number of all skills: {{ dogStore.allSkillsForChosenDog.length }} </p> -->
     <div v-if="!dogStore.chosenDog">
       <PrimaryButton  @click="openNewDogModal = true">Add a dog</PrimaryButton>
@@ -47,14 +47,35 @@ import PrimaryButton from '@/Components/PrimaryButton.vue'
 import Modal from '@/Components/Modal.vue'
 import FormNewDog from '@/Parts/FormNewDog.vue'
 import { useDogStore } from '../../Stores/dog.js'
-import { ref, watch, watchEffect, computed, onUpdated } from 'vue'
+import { ref, watch, watchEffect, computed, onUpdated, toRef, toRefs } from 'vue'
 import { usePage } from '@inertiajs/vue3';
+import { storeToRefs } from 'pinia';
 
 const page = usePage()
 const dogStore = useDogStore()
 const openNewDogModal = ref(false)
 
 const user = computed(() => page.props.auth.user)
+// const dogs = computed(() => page.props.dogs)
+console.log('user', user.value)
+
+
+watch(
+  () => user,
+  (newVal, oldVal) => {
+    console.log('watcher user computedRef')
+    dogStore.dogs = page.props.dogs
+    dogStore.randomSkill = null
+    if(page.props.dogs.length === 1){
+      dogStore.chosenDog = page.props.dogs[0]
+    } else { dogStore.chosenDog = null }
+
+    console.log('newVal', newVal.value)
+    console.log('oldVal', oldVal)
+  }, {
+       immediate: true,
+     }
+)
 
 
 </script>
