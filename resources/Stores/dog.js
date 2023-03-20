@@ -10,32 +10,63 @@ export const useDogStore = defineStore('dog', () => {
     // STATE
     // ————————————————————————————————————————————————————————————————————————————————————————————————————
 
+    // const user = ref(null)
     const dogs = ref(null);
-    dogs.value = page.props.dogs
-    // const user = computed(() => page.props.auth.user )
     const chosenDog = ref(null);
+    const openedCategory = ref(null)
+
+    const allSkillsForChosenDog = ref([])
+    const randomSkill = ref(null)
+
+    // console.log('props dogs from store', dogs.value)
+    // console.log('props user from store', user.value)
+
+    // async function getDogs() {
+    //     console.log('getting dogs')
+    //     console.log('dogs from getDogs() ', page.props.dogs)
+    //     dogs.value = await page.props.dogs
+    //     console.log('dogs after getDogs in store', dogs.value)
+    // }
+
+    // iz tle ne sprozi watcherja ko se user spremeni, na novo logira
+    // watch(
+    //     () => user,
+    //     (newVal, oldVal) => {
+    //         console.log('watcher user in dogStore')
+    //         // dogStore.dogs = page.props.dogs
+    //         chosenDog.value = null
+    //         randomSkill.value = null
+    //         // if(page.props.dogs.length === 1){
+    //         // dogStore.chosenDog = page.props.dogs[0]
+    //         // } else { dogStore.chosenDog = null }
+
+    //         console.log('newVal', newVal.value)
+    //         console.log('oldVal', oldVal)
+    //     }, {
+    //         immediate: true,
+    //         deep: true
+    //  }
+    // )
+
 
     // if(page.props.dogs.length === 1){
     //   chosenDog.value = page.props.dogs[0]
     // }
     // console.log('chosenDog store', chosenDog)
 
-    const openedCategory = ref(null)
-
-    const allSkillsForChosenDog = ref([])
-    const randomSkill = ref(null)
 
     watch(
       chosenDog,
       (newVal, oldVal) => {
         console.log('chosenDog watcher')
         // console.log('chosenDog', chosenDog)
+        // only if chosenDog didn't change to null
         if(chosenDog.value){
           getAllSkills()
           getRandomSkill()
           // console.log('randomNo', randomNumber.value) // 56
           // console.log('all', allSkillsForChosenDog.value)
-          console.log('randomSkill', randomSkill.value)
+          // console.log('randomSkill', randomSkill.value)
         }
       }
     )
@@ -76,19 +107,6 @@ export const useDogStore = defineStore('dog', () => {
       return randomSkill.value = allSkillsForChosenDog.value[randomNumber.value]
     }
 
-    // watch(
-    //   () => user,
-    //   (newVal, oldVal) => {
-    //     console.log('watcher user computedRef')
-    //     chosenDog.value = null
-    //     dogs.value = page.props.dogs
-    //     // getAllSkills()
-    //     // getRandomSkill()
-    //   }, {
-    //        immediate: true,
-    //        deep: true
-    //       }
-    // )
 
      // ————————————————————————————————————————————————————————————————————————————————————————————————————
     // RETURN

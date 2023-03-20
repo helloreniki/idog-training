@@ -24,13 +24,5 @@ import { useDogStore } from '../../Stores/dog.js'
 const dogStore = useDogStore()
 // const page = usePage()
 
-// console.log(page.props.dogs.length)
-// if(page.props.dogs.length === 1){
-//   dogStore.chosenDog = page.props.dogs[0]
-// }
 
-// i added this to dog.js store
-// put dogs from shared data to store
-// dogStore.dogs = page.props.dogs
-// console.log(dogStore.dogs)
 </script>
