@@ -107,11 +107,22 @@ export const useDogStore = defineStore('dog', () => {
       return randomSkill.value = allSkillsForChosenDog.value[randomNumber.value]
     }
 
+    function $reset() {
+        console.log('reseting in store')
+        dogs.value = null
+        chosenDog.value = null
+        randomSkill.value = null
+        allSkillsForChosenDog.value = null
+        openedCategory.value = null
+        console.log('chosendog', chosenDog.value)
+    }
+
+
 
      // ————————————————————————————————————————————————————————————————————————————————————————————————————
     // RETURN
     // ————————————————————————————————————————————————————————————————————————————————————————————————————
 
-    return { dogs, chosenDog, chooseDog, openedCategory, allSkillsForChosenDog, randomSkill, getRandomSkill }
+    return { dogs, chosenDog, chooseDog, openedCategory, allSkillsForChosenDog, randomSkill, getRandomSkill, $reset }
 
 })

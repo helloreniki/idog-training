@@ -8,8 +8,12 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 import DogNav from '@/Parts/DogNav.vue';
 import Sidebar from '@/Parts/Sidebar.vue';
+import { useDogStore } from '../../Stores/dog';
+
+const dogStore = useDogStore()
 
 const showingNavigationDropdown = ref(false);
+
 </script>
 
 <template>
@@ -67,7 +71,7 @@ const showingNavigationDropdown = ref(false);
 
                                     <template #content>
                                         <DropdownLink :href="route('profile.edit')"> Profile </DropdownLink>
-                                        <DropdownLink :href="route('logout')" method="post" as="button">
+                                        <DropdownLink @click="dogStore.$reset()" :href="route('logout')" method="post" as="button" >
                                             Log Out
                                         </DropdownLink>
                                     </template>
@@ -130,7 +134,7 @@ const showingNavigationDropdown = ref(false);
 
                         <div class="mt-3 space-y-1">
                             <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>
-                            <ResponsiveNavLink :href="route('logout')" method="post" as="button">
+                            <ResponsiveNavLink :href="route('logout')" method="post" as="button" @click="dogStore.$reset">
                                 Log Out
                             </ResponsiveNavLink>
                         </div>
