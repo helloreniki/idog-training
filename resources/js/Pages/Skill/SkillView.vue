@@ -23,6 +23,7 @@
     <Modal :show="newSkillModalOpened" @close="newSkillModalOpened = false">
       <div class="p-8">
         <h1 class="text-2xl font-semibold">Add New Skill</h1>
+
         <!-- FORM -->
         <form @submit.prevent="submitForm" class="flex flex-col gap-4 my-6">
           <!-- dogs -->
