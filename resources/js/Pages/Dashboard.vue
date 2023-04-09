@@ -1,15 +1,8 @@
 <template>
   <AuthenticatedLayout>
     <Head title="Dashboard" />
-    <!-- {{ user.name }}
-    {{ $page.props.auth.user.name }} -->
-    <!-- <p class="text-gray-400 text-sm"> Number of all skills: {{ dogStore.allSkillsForChosenDog.length }} </p> -->
+
     <div v-if="!dogStore.chosenDog">
-      <PrimaryButton  @click="openNewDogModal = true">Add a dog</PrimaryButton>
-      <div v-if="$page.props.dogs.length > 0" class="flex gap-4 my-4">
-        <div class="font-semibold">Choose a dog:</div>
-        <div v-for="dog in $page.props.dogs" :key="dog.id" @click="dogStore.chooseDog(dog.id)" class="cursor-pointer">{{ dog.name }}</div>
-      </div>
       <div class="text-red-500 text-sm my-3">Please choose or add a dog first.</div>
     </div>
 
@@ -20,12 +13,7 @@
       </div>
     </div>
 
-     <!-- modal new dog -->
-     <Modal :show="openNewDogModal" @close="openNewDogModal = false">
-      <FormNewDog @formSubmitted="openNewDogModal = false" />
-    </Modal>
-
-    <div class="mt-16">
+    <div class="mt-16 text-sm text-gray-400">
       <h1>TODO</h1>
       <ul>
         <li>show upcoming trainings</li>
@@ -39,17 +27,13 @@
 
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue'
-import Modal from '@/Components/Modal.vue'
-import FormNewDog from '@/Parts/FormNewDog.vue'
 import { useDogStore } from '../../Stores/dog.js'
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { usePage } from '@inertiajs/vue3';
 
 
 const page = usePage()
 const dogStore = useDogStore()
-const openNewDogModal = ref(false)
 
 // const user = computed(() => page.props.auth.user)
 

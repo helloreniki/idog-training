@@ -5,7 +5,6 @@
       <CategoriesTab @addSkill="openNewSkillModal" />
     </div>
 
-    <PrimaryButton @click="openNewDogModal = true" class="my-4">Add a dog</PrimaryButton>
     <div v-if="!dogStore.chosenDog">
       <div v-if="$page.props.dogs.length > 0" class="flex gap-4 my-4">
         <div class="font-semibold">Choose a dog:</div>
@@ -71,10 +70,6 @@
       </div>
     </Modal>
 
-    <!-- modal new dog -->
-    <Modal :show="openNewDogModal" @close="openNewDogModal = false">
-      <FormNewDog @formSubmitted="openNewDogModal = false" />
-    </Modal>
   </AuthenticatedLayout>
 </template>
 
@@ -89,7 +84,6 @@ import TextInput from '@/Components/TextInput.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import SkillItem from '@/Pages/Skill/SkillItem.vue'
 import CategoriesTab from './CategoriesTab.vue';
-import FormNewDog from '@/Parts/FormNewDog.vue'
 
 import { useForm, usePage, router } from '@inertiajs/vue3'
 import SelectListbox from '@/Components/SelectListbox.vue';
@@ -146,21 +140,5 @@ onUpdated(() => {
   console.log('updated dogs', dogStore.dogs)
 })
 
-const openNewDogModal = ref(false)
-
-// const formDog = useForm({
-//   name: null,
-//   breed: null,
-//   dob: null,
-// })
-
-// function submitDogForm() {
-//   formDog.post('/dog', {
-//     onSuccess: () => {
-//       formDog.reset()
-//       openNewDogModal.value = false
-//     }
-//   })
-// }
 
 </script>
